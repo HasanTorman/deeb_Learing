@@ -4,17 +4,17 @@ CREATE DATABASE activation_db;
 -- Connect to the database
 \c activation_db
 
--- Create the employees table
-CREATE TABLE employees (
+-- Create the employees table to track employees and their associated emulator IDs
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    employee_id VARCHAR(255) NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
     emulator_id VARCHAR(255) NOT NULL
 );
 
--- Create the activations table
+-- Create the activations table to track all activation attempts
 CREATE TABLE activations (
     id SERIAL PRIMARY KEY,
-    employee_id VARCHAR(255) NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
     emulator_id VARCHAR(255) NOT NULL,
     ip VARCHAR(255) NOT NULL,
     phone_number VARCHAR(255) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE activations (
     cost DECIMAL(10, 2) DEFAULT 0.00
 );
 
--- Create the ip_limits table
+-- Create the ip_limits table to track IP usage limits
 CREATE TABLE ip_limits (
     ip VARCHAR(255) PRIMARY KEY,
     activation_count INT DEFAULT 0,
@@ -44,15 +44,23 @@ CREATE TABLE ip_limits (
     time_window_end TIMESTAMPTZ
 );
 
--- Create the available_ips table
+-- Create the available_ips table to store available IPs
 CREATE TABLE available_ips (
     ip VARCHAR(255) PRIMARY KEY
 );
 
--- Create the used_phone_numbers table
+-- Create the used_phone_numbers table to store used phone numbers and their costs
 CREATE TABLE used_phone_numbers (
     id SERIAL PRIMARY KEY,
     phone_number VARCHAR(255) NOT NULL,
     cost DECIMAL(10, 2) DEFAULT 0.00,
     UNIQUE(phone_number)
+);
+
+-- Create the external_factors table to store external factors affecting activation success
+CREATE TABLE external_factors (
+    id SERIAL PRIMARY KEY,
+    factor_type VARCHAR(50),  -- نوع العامل (تحديث، سياسة، إلخ)
+    description TEXT,         -- وصف العامل
+    date TIMESTAMPTZ          -- تاريخ العامل
 );

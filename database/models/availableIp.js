@@ -1,15 +1,18 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../index');
 
-class Employee extends Model { }
+class AvailableIp extends Model {}
 
-Employee.init({
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+AvailableIp.init({
+  ip: {
+    type: DataTypes.STRING(255),
+    primaryKey: true
   }
-}, { sequelize, modelName: 'availableIp', tableName: 'available_ips', timestamps: false });
+}, {
+  sequelize,
+  modelName: 'available_ip',
+  tableName: 'available_ips',
+  timestamps: false
+});
 
-module.exports = Employee;
-
+module.exports = AvailableIp;

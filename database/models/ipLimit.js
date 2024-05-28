@@ -4,10 +4,9 @@ const sequelize = require('../index');
 class IpLimit extends Model { }
 
 IpLimit.init({
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+    ip: {
+        type: DataTypes.STRING,
+        primaryKey: true
     },
     activation_count: {
         type: DataTypes.INTEGER,
@@ -23,6 +22,11 @@ IpLimit.init({
     time_window_end: {
         type: DataTypes.DATE
     }
-}, { sequelize, modelName: 'ipLimit', tableName: 'ip_limits', timestamps: false });
+}, {
+    sequelize,
+    modelName: 'ip_limit',
+    tableName: 'ip_limits',
+    timestamps: false
+});
 
 module.exports = IpLimit;

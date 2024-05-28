@@ -13,6 +13,12 @@ UsedPhoneNumber.init({
         type: DataTypes.DECIMAL(10, 2),
         defaultValue: 0.00
     }
-}, { sequelize, modelName: 'usedPhoneNumbers', tableName: 'used_phone_numbers', timestamps: false });
+}, {
+    sequelize,
+    modelName: 'UsedPhoneNumber',
+    tableName: 'used_phone_numbers',
+    timestamps: false
+});
 
 module.exports = UsedPhoneNumber;
+
